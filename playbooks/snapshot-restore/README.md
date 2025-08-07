@@ -24,6 +24,8 @@ Before running the script, ensure you have the following:
 
      `` pip install ansible``
 
+- Check the ``group_vars`` and make sure the ansible user contains your username.
+
 ## How to Use
 
 1. Run the Ansible Playbook

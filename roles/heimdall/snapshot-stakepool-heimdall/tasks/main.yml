@@ -20,10 +20,9 @@
 
 # Delete the entire data folder
 - name: Remove existing Heimdall data if present
-  ansible.builtin.file:
-    path: /var/lib/heimdall/
-    state: absent
-  when: heimdall_data_dir.stat.exists
+  ansible.builtin.shell:
+    cmd: |
+      sudo rm -rf /var/lib/heimdall/data
 
 # Make sure that heimdall group and user is installed
 - name: Ensure heimdall group exists
