@@ -1,0 +1,14 @@
+# Only run this block if the node is a validator
+- block:
+    # Run the RabbitMQ binary to retrieve the current version
+    - name: Check RabbitMQ version
+      become: yes
+      command: rabbitmqctl version
+      register: rabbitmq_version_result
+      ignore_errors: yes  # Don't fail the play if the binary is missing
+
+    # Print the RabbitMQ version, or error message
+    - name: Print RabbitMQ version
+      debug:
+        msg: "{{ rabbitmq_version_result.stdout | default('RabbitMQ version check failed') }}"
+  when: node_type == "validator"

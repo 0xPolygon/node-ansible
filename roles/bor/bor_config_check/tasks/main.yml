@@ -26,6 +26,8 @@
         bor_p2p_bootnodes: "{{ bor_config_content | regex_search('bootnodes\\s*=\\s*\\[([^\\]]+)\\]', '\\1') | default('Not found') }}"
         bor_p2p_static_nodes: "{{ bor_config_content | regex_search('static-nodes\\s*=\\s*\\[([^\\]]+)\\]', '\\1') | default('Not found') }}"
         bor_p2p_trusted_nodes: "{{ bor_config_content | regex_search('trusted-nodes\\s*=\\s*\\[([^\\]]+)\\]', '\\1') | default('Not found') }}"
+        bor_witness_enable: "{{ bor_config_content | regex_search('\\[witness\\][^\\[]*enable\\s*=\\s*(\\w+)', '\\1') | default('Not found') }}"
+        bor_witness_producewitnesses: "{{ bor_config_content | regex_search('\\[witness\\][^\\[]*producewitnesses\\s*=\\s*(\\w+)', '\\1') | default('Not found') }}"
 
     # Display extracted sentry config values
     - name: Print Bor config values (sentry)
@@ -40,6 +42,8 @@
           p2p.discovery.bootnodes: "{{ bor_p2p_bootnodes }}"
           p2p.discovery.static-nodes: "{{ bor_p2p_static_nodes }}"
           p2p.discovery.trusted-nodes: "{{ bor_p2p_trusted_nodes }}"
+          witness.enable: "{{ bor_witness_enable }}"
+          witness.producewitnesses: "{{ bor_witness_producewitnesses }}"
 
   when: node_type == "sentry"
 
@@ -61,6 +65,7 @@
         bor_p2p_trusted_nodes: "{{ bor_config_content | regex_search('trusted-nodes\\s*=\\s*\\[([^\\]]+)\\]', '\\1') | default('Not found') }}"
         bor_p2p_dns: "{{ bor_config_content | regex_search('dns\\s*=\\s*\\[([^\\]]+)\\]', '\\1') | default('Not found') }}"
         bor_heimdall_url: "{{ bor_config_content | regex_search('url\\s*=\\s*\"([^\"]+)\"', '\\1') | default('Not found') }}"
+        bor_syncmode: "{{ bor_config_content | regex_search('syncmode\\s*=\\s*\"?(\\w+)\"?', '\\1') | default('Not found') }}"
         bor_miner_mine: "{{ bor_config_content | regex_search('mine\\s*=\\s*(\\w+)', '\\1') | default('Not found') }}"
         bor_miner_etherbase: "{{ bor_config_content | regex_search('etherbase\\s*=\\s*\"([^\"]+)\"', '\\1') | default('Not found') }}"
         bor_jsonrpc_ipcpath: "{{ bor_config_content | regex_search('ipcpath\\s*=\\s*\"([^\"]+)\"', '\\1') | default('Not found') }}"
@@ -85,6 +90,7 @@
           p2p.discovery.trusted-nodes: "{{ bor_p2p_trusted_nodes }}"
           p2p.discovery.dns: "{{ bor_p2p_dns }}"
           heimdall.url: "{{ bor_heimdall_url }}"
+          syncmode: "{{ bor_syncmode }}"
           miner.mine: "{{ bor_miner_mine }}"
           miner.etherbase: "{{ bor_miner_etherbase }}"
           jsonrpc.ipcpath: "{{ bor_jsonrpc_ipcpath }}"
