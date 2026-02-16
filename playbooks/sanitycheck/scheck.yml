@@ -4,7 +4,9 @@
     Check:
     - OS Version
     - Bor and Heimdall versions
+    - RabbitMQ version (validator node)
     - Config file values (Bor and Heimdall)
+    - Heimdall service file flags (validator node)
     - Do data directories exist?
     - Directory ownership
     - Is net-tools installed?
@@ -22,14 +24,16 @@
 
   roles:
     - os_version                                 # Print base OS info
+    - rabbitmq_check                             # Check RabbitMQ version (validator only)
     - bor/get-version                            # Check and print Bor binary version
     - bor/bor_directory_check                    # Verify Bor data directory exists
     - bor/bor_ownership_check                    # Check and fix Bor directory ownership if needed
     - bor/bor_config_check                       # Parse and report Bor config.toml values
     - heimdall/heimdall_config_check             # Parse and report Heimdall config.toml values
-    - heimdall/get-version                  # Check and print Heimdall binary version
+    - heimdall/get-version                       # Check and print Heimdall binary version
     - heimdall/heimdall_directory_check          # Verify Heimdall data directory exists
     - heimdall/heimdall_ownership_check          # Check and fix Heimdall directory ownership
+    - heimdall/heimdall_servicefile_check        # Check heimdalld service file flags (validator only)
     - install_nettools                           # Make sure netstat is available for port checks
     - port_check                                 # Check critical ports (26656, 30303)
     - rpc_checks                                 # Query Bor and Heimdall RPC endpoints

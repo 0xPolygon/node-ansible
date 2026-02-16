@@ -62,7 +62,9 @@ The playbook performs:
 
 - OS version check
 - Bor + Heimdall version checks
+- Rabbitmq version check (only if node_type=validator)
 - config.toml values extraction (Bor + Heimdall)
+- Heimdall service file check (only if node_type=validator)
 - Data directory existence and ownership
 - `net-tools` package presence
 - Bor + Heimdall P2P port status check (26656, 30303)

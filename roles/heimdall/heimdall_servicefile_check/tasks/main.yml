@@ -1,0 +1,25 @@
+---
+# Read the heimdalld systemd service file
+- name: Read heimdalld service file
+  become: yes
+  slurp:
+    src: "{{ heimdall_service_path | default('/lib/systemd/system/heimdalld.service') }}"
+  register: heimdall_service_file
+
+# Decode the service file content
+- name: Decode heimdalld service file content
+  set_fact:
+    heimdall_service_content: "{{ heimdall_service_file.content | b64decode }}"
+
+# For validator node: check --bridge --all flags 
+- block:
+
+    - name: Extract heimdalld service flags (validator)
+      set_fact:
+        heimdall_service_bridge_all: "{{ heimdall_service_content | regex_search('--bridge\\s+--all') | default('') }}"
+
+    - name: Print heimdalld service flags (validator)
+      debug:
+        msg: "{{ '--bridge --all flags are present' if heimdall_service_bridge_all else '--bridge --all flags are not present' }}"
+
+  when: node_type == "validator"
