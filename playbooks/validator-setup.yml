@@ -2,7 +2,7 @@
 # This playbook requires the following:
 # 1. cast to be installed on your local machine. # curl -L https://foundry.paradigm.xyz | bash && foundryup
 # 2. SSH key for the network you will setup a validator for environment
-# 3. Polycli is required to be installed on your local machine # https://github.com/maticnetwork/polygon-cli
+# 3. Polycli is required to be installed on your local machine # https://github.com/0xPolygon/polygon-cli
 # ####################################### #
 # The following playbook will invoke a role that will do the following
 # 1. Generate a wallet/private key pair
